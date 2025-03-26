@@ -1,7 +1,8 @@
 # 基本设置
-port: 7890 # HTTP代理端口
-socks-port: 7891 # SOCKS代理端口
-allow-lan: false # 允许局域网连接
+mixed-port: 7890
+port: 7891 # HTTP代理端口
+socks-port: 7892 # SOCKS代理端口
+allow-lan: true # 允许局域网连接
 bind-address: "*" # 绑定地址，* 表示所有地址
 mode: rule # 代理模式，rule表示规则模式
 log-level: info # 日志级别
