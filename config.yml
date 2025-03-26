@@ -22,59 +22,26 @@ dns:
   enhanced-mode: fake-ip # 设置增强模式为 fake-ip 模式，提高解析速度和连接性能
   fake-ip-range: 198.18.0.1/16 # 设置 fake-ip 的 IP 地址范围为 198.18.0.1/16
   use-hosts: true # 启用 hosts 文件解析，Clash 会检查系统的 hosts 文件
-  use-system-hosts: true # 使用系统的 hosts 文件进行域名解析
   prefer-h3: true # 如果DNS服务器支持DoH3会优先使用h3，提升性能
-  respect-rules: true # 让 DNS 解析遵循 Clash 的路由规则
-  # 定义不使用虚假IP解析的域名列表
-  fake-ip-filter:
-    - "*.lan"
-    - localhost.ptlogin2.qq.com
-    - "+.srv.nintendo.net"
-    - "+.stun.playstation.net"
-    - "+.msftconnecttest.com"
-    - "+.msftncsi.com"
-    - "+.xboxlive.com"
-    - "xbox.*.microsoft.com"
-    - "*.battlenet.com.cn"
-    - "*.battlenet.com"
-    - "*.blzstatic.cn"
-    - "*.battle.net"
-
   # 建议多写点 DNS （ clash 的机制是同时向所有 DNS 发起解析请求，用返回最快那个，后续的直接丢弃）
   # 用来解析 nameserver 和 fallback 里面的域名的，必须为 IP, 可为加密 DNS
   default-nameserver:
-    - 8.8.8.8 # Google DNS
-    - 1.1.1.1 # Cloudflare DNS
     - 119.29.29.29 # 腾讯DNSPod
     - 223.5.5.5 # 阿里DNS
     - 223.6.6.6 # 阿里DNS
     - 180.76.76.76 # 百度DNS
+    - 8.8.8.8 # Google DNS
+    - 1.1.1.1 # Cloudflare DNS
 
-  # 用于direct出口域名解析的 DNS 服务器
-  # 如果不填则遵循nameserver-policy、nameserver和fallback的配置
-  direct-nameserver:
-    - system
-    - https://doh.pub/dns-query #腾讯
-    - https://dns.alidns.com/dns-query #阿里
-    - 114.114.114.114 # 114
-    - 114.114.115.115 # 114
-    - 101.226.4.6 # 百度-电信
-    - 123.125.81.6 # 百度-联通
-    - 180.76.76.76 # 百度-联通
-    - 112.124.47.27 # OneDNS-南方
-    - 114.215.126.16 # OneDNS-北方
-  nameserver:
-    - https://8.8.8.8/dns-query#🚀 节点选择
-    - https://1.1.1.1/dns-query#🚀 节点选择
-  # 解析代理服务器域名的DNS服务器,就是节点本身中包含的域名
-  # 代理节点域名解析服务器，仅用于解析代理节点的域名，如果不填则遵循nameserver-policy、nameserver和fallback的配置
-  proxy-server-nameserver:
-    - https://1.1.1.1/dns-query # Cloudflare DNS
-    - https://8.8.8.8/dns-query # Google DNS
-    - https://doh.pub/dns-query #腾讯
-    - https://dns.alidns.com/dns-query #阿里
-    - https://9.9.9.9/dns-query #Quad9
-    - https://208.67.222.222/dns-query #OpenDNS
+  nameserver: ["https://doh.pub/dns-query", "https://dns.alidns.com/dns-query"]
+  fallback:
+    [
+      "https://doh.dns.sb/dns-query",
+      "https://dns.cloudflare.com/dns-query",
+      "https://dns.twnic.tw/dns-query",
+      "tls://8.8.4.4:853",
+    ]
+  fallback-filter: { geoip: true, ipcidr: [240.0.0.0/4, 0.0.0.0/32] }
 
 # 配置文件管理
 profile:
