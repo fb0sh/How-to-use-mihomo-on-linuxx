@@ -5,9 +5,17 @@
 https://github.com/MetaCubeX/mihomo
 
 2. Transform your subscription url to config.toml
+python3 subscribe.py url
 
-3. Copy config.toml to /home/$USER/.conf/mihomo/config.toml
+4. Copy output.toml to /etc/mihomo/config.toml
 
-5. Visit the admin panel (use root start mihomo can use tun mode )
+5. Copy mihomo.service to /etc/systemd/system/mihomo.service
+sudo systemctl enable mihomo
+
+sudo systemctl start mihomo
+
+sudo systemctl status mihomo
+
+7. Visit the admin panel (use root start mihomo can use tun mode )
 https://metacubex.github.io/metacubexd
 
